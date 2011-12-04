@@ -433,7 +433,7 @@
       <a href="http://clojure.org/special_forms#toc14">monitor-exit</a>,
       <a href="http://clojure.org/java_interop#new">new</a>,
       <a href="http://clojure.org/special_forms#toc5">quote</a>,
-      <a href="http://clojure.org/special_forms#toc10">recur</a>,
+      <a href="http://clojure.org/special_forms#toc12">recur</a>,
       <a href="http://clojure.org/java_interop#set">set!</a>,
       <a href="http://clojure.org/special_forms#try">throw</a>,
       <a href="http://clojure.org/special_forms#try">try</a> and
@@ -579,43 +579,52 @@ public void hello(String name) {
       a repository for contributed libraries.
       Some of its libraries are mature, commonly used and
       may eventually be included in Clojure proper.
-      However, it's also the case that some of its libraries
-      are not mature, not commonly used nor
+      However, it's also the case that some of the older monolithic
+      contrib modules were
+      not mature, not commonly used nor
       targeted for inclusion in Clojure proper.
-      It's a mixed bag.
-      For documentation on these libraries, see
-      <a href="http://richhickey.github.com/clojure-contrib/index.html">http://richhickey.github.com/clojure-contrib/index.html</a>
+      It was a mixed bag. As part of the Clojure 1.3.0 roadmap,
+      the monolithic contrib library has been deprecated and is
+      no longer being maintained. In its place are a series of
+      independent contrib libraries that have been approved by
+      Clojure/core and have active maintainers and their own
+      projects on JIRA where bugs can be reported:
+      <a href="http://dev.clojure.org/jira/secure/BrowseProjects.jspa#all">http://dev.clojure.org/jira/secure/BrowseProjects.jspa#all</a>.
+      For documentation on these new libraries, see
+      <a href="http://dev.clojure.org/display/doc/Clojure+Contrib">http://dev.clojure.org/display/doc/Clojure+Contrib</a>
     </p>
     <p>
-      There are three ways to obtain a .jar file for Clojure Contrib.
-      First, a pre-built .jar file can be downloaded.
-      Second, one can be built from source using Maven.
+      Currently there is no "all inclusive" JAR for Clojure Contrib.
+      Individual contrib libraries can be included via Maven or
+      Leiningen by specifying the dependency. The easiest way to find
+      the latest version and the artifact ID is to follow the links on
+      this page, which also shows how the old monolithic contrib maps
+      to the new modular contrib libraries:
+      <a href="http://dev.clojure.org/display/design/Where+Did+Clojure.Contrib+Go">http://dev.clojure.org/display/design/Where+Did+Clojure.Contrib+Go</a>.
       Maven can be obtained from
       <a href="http://maven.apache.org/">http://maven.apache.org/</a>.
-      The command to perform this is "<code>mvn package</code>".
-      Third, one can be built from source using Ant.
-      Ant can be obtained from
-      <a href="http://ant.apache.org/">http://ant.apache.org/</a>.
-      The command to perform this is
-      "<code>ant -Dclojure.jar={<i>path</i>}</code>".
+      Leiningen can be obtained from the link above.
     </p>
     <p>
       To build from the most recent source,
       assuming you have
-      <a href="http://git-scm.com/">Git</a>
-      and <a href="http://ant.apache.org/">Ant</a> installed,
+      <a href="http://git-scm.com/">Git</a>,
+      <a href="http://ant.apache.org/">Ant</a>
+      and <a href="http://maven.apache.org/">Maven</a> installed,
       run the following commands
-      to retrieve and build both Clojure proper and Clojure Contrib:
+      to retrieve and build Clojure proper:
     </p>
     <div class="code">
 <pre xml:space="preserve">
-git clone git://github.com/richhickey/clojure.git
+git clone git://github.com/clojure/clojure.git
 cd clojure
 ant clean jar
+# or: mvn package
 cd ..
-git clone git://github.com/richhickey/clojure-contrib.git
-cd clojure-contrib
-ant -Dclojure.jar=../clojure/clojure.jar clean jar
+# for each modular contrib library, e.g., clojure.java.jdbc: 
+git clone git://github.com/clojure/java.jdbc.git
+cd java.jdbc
+mvn package
 </pre>
 </div>
     <p>
@@ -629,7 +638,7 @@ ant -Dclojure.jar=../clojure/clojure.jar clean jar
     </p>
     <div class="code">
 <pre xml:space="preserve">
-java -jar <i>path</i>/clojure.jar %1
+java -jar <i>path</i>/clojure-<i>version</i>.jar %1
 </pre>
 </div>
     <p>
@@ -668,8 +677,6 @@ clj <i>source-file-path</i>
       For more details, see 
       <a href="http://clojure.org/getting_started">http://clojure.org/getting_started</a> and
       <a href="http://clojure.org/repl_and_main">http://clojure.org/repl_and_main</a>.
-      Also, Stephen Gilardi has provided a script at
-      <a href="http://github.com/richhickey/clojure-contrib/raw/master/launchers/bash/clj-env-dir">http://github.com/richhickey/clojure-contrib/raw/master/launchers/bash/clj-env-dir</a>.
     </p>
     <p>
       In order to take maximum advantage of multiple processors,
@@ -1122,13 +1129,13 @@ user=&gt; (* n 3)
     </p>
     <div class="code">
 <pre xml:space="preserve">
-(require 'clojure.contrib.str-utils)
-(doc clojure.contrib.str-utils/str-join) ; -&gt;
+(require 'clojure.string)
+(doc clojure.string/join) ; -&gt;
 ; -------------------------
-; clojure.contrib.str-utils/str-join
-; ([separator sequence])
-;   Returns a string of all elements in 'sequence', separated by
-;   'separator'.  Like Perl's 'join'.
+; clojure.string/join
+; ([coll] [separator coll])
+;   Returns a string of all elements in coll, as returned by (seq coll),
+;    separated by an optional separator.
 </pre>
 </div>
     <p>
@@ -1140,7 +1147,7 @@ user=&gt; (* n 3)
       To see the source for a function/macro,
       enter <code>(source <i>name</i>)</code>.
       <code>source</code> is a macro defined in the
-      <code>clojure.contrib.repl-utils</code> namespace
+      <code>clojure.repl</code> namespace
       which is automatically loaded in the REPL environment.
     </p>
     <p>
@@ -1837,7 +1844,7 @@ The flavor of red popsicles is cherry.
 </div>
     <p>
       There is also a <code>-?></code> macro
-      in the <code>clojure.contrib.core</code> namespace that
+      in the <code>clojure.core.incubator</code> namespace that
       stops and returns nil if any function in the chain returns nil.
       This avoids getting a <code>NullPointerException</code>.
     </p>
@@ -1885,6 +1892,10 @@ The flavor of red popsicles is cherry.
 </div>
 
     <h2><a name="StructMaps">StructMaps</a></h2>
+    <p>
+      Note: StructMaps have been deprecated. Records are generally
+      recommended instead. A section on Records will be added shortly.
+    </p>
     <p>
       StructMaps are similar to regular maps, but are optimized
       to take advantage of common keys in multiple instances
@@ -1986,8 +1997,8 @@ The flavor of red popsicles is cherry.
       This means they are only visible in the namespace
       in which they are defined.
       Other macros that produce private definitions,
-      such as <code>defmacro-</code> and <code>defstruct-</code>,
-      are in <code>clojure.contrib.def</code>.
+      such as <code>defmacro-</code>,
+      are in <code>clojure.core.incubator</code>.
     </p>
     <p>
       Functions can take a variable number of parameters.
@@ -2418,7 +2429,7 @@ Calendar/APRIL ; works if the Calendar class was imported
 </div>
     <p>
       There is also a <code>.?.</code> macro
-      in the <code>clojure.contrib.core</code> namespace that
+      in the <code>clojure.core.incubator</code> namespace that
       stops and returns nil if any method in the chain returns null.
       This avoids getting a <code>NullPointerException</code>.
     </p>
@@ -2895,7 +2906,7 @@ D2
       One way to avoid this issue in Clojure is to use the
       <code>loop</code> and <code>recur</code> special forms.
       Another way is to use the
-      <a href="http://clojure.org/api#trampoline">trampoline</a>
+      <a href="http://clojure.github.com/clojure/clojure.core-api.html#clojure.core/trampoline">trampoline</a>
       function.
     </p>
     <p>
@@ -2968,7 +2979,7 @@ D2
       where a function calls another function
       which calls back to the original function.
       The <code>
-<a href="http://clojure.org/api#trampoline">trampoline</a>
+<a href="http://clojure.github.com/clojure/clojure.core-api.html#clojure.core/trampoline">trampoline</a>
 </code>
       function, not covered here, does support mutual recursion.
     </p>
@@ -3250,9 +3261,8 @@ D2
       that perform I/O operations.
       Since Java classes are easy to use from Clojure code,
       the classes in the <code>java.io</code> package
-      are often used directly.
-      However, the duck-streams library in
-      <a href="#Libraries">Clojure Contrib</a>
+      can be used directly.
+      However, the clojure.java.io library
       makes many uses of those classes easier.
     </p>
     <p>
@@ -3393,14 +3403,10 @@ Output from pr:
       <code>with-open</code> and <code>line-seq</code>.
       It reads all the lines in a file
       and prints those that contain a given word.
-      It does this in two ways, first using <code>with-open</code>
-      and then using <code>read-lines</code>
-      from the duck-streams library
-      in <a href="#Libraries">Clojure Contrib</a>.
     </p>
     <div class="code">
 <pre xml:space="preserve">
-(use '[clojure.contrib.duck-streams :only (read-lines)])
+(use '[clojure.java.io :only (reader)])
 
 (defn print-if-contains [line word]
   (when (.contains line word) (println line)))
@@ -3408,28 +3414,23 @@ Output from pr:
 (let [file "story.txt"
       word "fur"]
 
-  ; with-open will close the FileReader and BufferedReader
-  ; after evaluating all the expressions in its body.
-  (with-open [fr (java.io.FileReader. file)
-              br (java.io.BufferedReader. fr)]
-    (doseq [line (line-seq br)] (print-if-contains line word)))
-
-  ; read-lines closes the Reader it creates
-  ; after all the lines it returns in a lazy sequence are consumed.
-  (doseq [line (read-lines file)] (print-if-contains line word)))
+  ; with-open will close the reader after
+  ; evaluating all the expressions in its body.
+  (with-open [rdr (reader file)]
+    (doseq [line (line-seq rdr)] (print-if-contains line word))))
 </pre>
 </div>
     <p>
       The <code>slurp</code> function reads the entire contents of a file
       into a string and returns it.
-      The duck-streams library provides the <code>spit</code> function
+      The <code>spit</code> function
       which writes a string to a given file and closes it.
     </p>
     <p>
       This article only scratches the surface
-      of what the duck-streams library provides.
+      of what the core and java.io libraries provide.
       It's a worthwhile investment to read through
-      the file <code>duck-streams.clj</code>
+      the file <code>clojure/java/io.clj</code>
       to learn about the other functions it defines.
     </p>
 
@@ -3553,15 +3554,13 @@ Output from pr:
       In order to access items that are not in the default namespace
       they must be namespace-qualified.
       This is done by preceding a name with a namespace name and a slash.
-      For example, the str-utils library in
-      <a href="#Libraries">Clojure Contrib</a> defines
-      the <code>str-join</code> function
-      in the namespace <code>clojure.contrib.str-utils</code>.
+      For example, the clojure.string library defines
+      the <code>join</code> function.
       It creates a string by concatenating a given
       separator string between the string representation of
       all the items in a sequence.
       The namespace-qualified name of this function is
-      <code>clojure.contrib.str-utils/str-join</code>.
+      <code>clojure.string/join</code>.
     </p>
     <p>
       <a name="require">The</a> <code>require</code> function
@@ -3571,7 +3570,7 @@ Output from pr:
     </p>
     <div class="code">
 <pre xml:space="preserve">
-(require 'clojure.contrib.str-utils)
+(require 'clojure.string)
 </pre>
 </div>
     <p>
@@ -3584,7 +3583,7 @@ Output from pr:
     </p>
     <div class="code">
 <pre xml:space="preserve">
-(clojure.contrib.str-utils/str-join "$" [1 2 3]) ; -&gt; "1$2$3"
+(clojure.string/join "$" [1 2 3]) ; -&gt; "1$2$3"
 </pre>
 </div>
     <p>
@@ -3595,8 +3594,8 @@ Output from pr:
     </p>
     <div class="code">
 <pre xml:space="preserve">
-(alias 'su 'clojure.contrib.str-utils)
-(su/str-join "$" [1 2 3]) ; -&gt; "1$2$3"
+(alias 'su 'clojure.string)
+(su/join "$" [1 2 3]) ; -&gt; "1$2$3"
 </pre>
 </div>
     <p>
@@ -3609,7 +3608,7 @@ Output from pr:
     </p>
     <div class="code">
 <pre xml:space="preserve">
-(refer 'clojure.contrib.str-utils)
+(refer 'clojure.string)
 </pre>
 </div>
     <p>
@@ -3617,7 +3616,7 @@ Output from pr:
     </p>
     <div class="code">
 <pre xml:space="preserve">
-(str-join "$" [1 2 3]) ; -&gt; "1$2$3"
+(join "$" [1 2 3]) ; -&gt; "1$2$3"
 </pre>
 </div>
     <p>
@@ -3627,7 +3626,7 @@ Output from pr:
     </p>
     <div class="code">
 <pre xml:space="preserve">
-(use 'clojure.contrib.str-utils)
+(use 'clojure.string)
 </pre>
 </div>
     <p>
@@ -3647,13 +3646,14 @@ Output from pr:
     <div class="code">
 <pre xml:space="preserve">
 (ns com.ociweb.demo
-  (:require [clojure.contrib.str-utils :as su])
-  (:use [clojure.contrib.math :only (gcd, sqrt)])
+  (:require [clojure.string :as su])
+  ; assumes this dependency: [org.clojure/math.numeric-tower "0.0.1"]
+  (:use [clojure.math.numeric-tower :only (gcd, sqrt)])
   (:import (java.text NumberFormat) (javax.swing JFrame JLabel)))
 
-(println (su/str-join "$" [1 2 3])) ; -&gt; 1$2$3
+(println (su/join "$" [1 2 3])) ; -&gt; 1$2$3
 (println (gcd 27 72)) ; -&gt; 9
-(println (sqrt 5)) ; -&gt; 2.236
+(println (sqrt 5)) ; -&gt; 2.23606797749979
 (println (.format (NumberFormat/getInstance) Math/PI)) ; -&gt; 3.142
     
 ; See the screenshot that follows this code.
@@ -3701,7 +3701,7 @@ Output from pr:
     </p>
     <div class="code">
 <pre xml:space="preserve">
-(ns-interns 'clojure.contrib.math)
+(ns-interns 'clojure.math.numeric-tower)
 </pre>
 </div>
     <p>
@@ -3716,9 +3716,8 @@ Output from pr:
       <code>clojure.zip</code> and
       <code>user</code>.
       The following additional namespaces are loaded by default in a REPL:
-      <code>clojure.contrib.repl-utils</code>,
-      <code>clojure.contrib.seq-utils</code> and
-      <code>clojure.contrib.str-utils</code>.
+      <code>clojure.repl</code> and
+      <code>clojure.java.javadoc</code>.
     </p>
     <p>
       The <code>namespace</code> function returns
@@ -3854,9 +3853,7 @@ Output from pr:
 </pre>
 </div>
     <p>
-      The <code>source</code> function, in the repl-utils library of
-      <a href="#Libraries">Clojure Contrib</a>
-      (<code>clojure.contrib.repl-utils</code> namespace),
+      The <code>source</code> function, in the clojure.repl library,
       uses this metadata to retrieve the source code
       for a given function or macro.  For example:
     </p>
@@ -5263,8 +5260,8 @@ public class Main {
     <p>
       There are many more advanced compiling features.
       For more detail, see the API documentation
-      for the <code>gen-class</code> macro at
-      <a href="http://clojure.org/api#toc248">http://clojure.org/api/</a>.
+      for the <code><a href="http://clojure.github.com/clojure/clojure.core-api.html#clojure.core/gen-class">gen-class</a></code>
+      macro.
       Also see
       <a href="http://clojure.org/compilation">http://clojure.org/compilation/</a>.
     </p>
@@ -5413,7 +5410,7 @@ public class Main {
     <p>
       Clojure plugins for many editors and IDEs are available.
       For emacs there is clojure-mode and swank-clojure, both at
-      <a href="http://github.com/jochu">http://github.com/jochu</a>.
+      <a href="https://github.com/technomancy/swank-clojure">https://github.com/technomancy/swank-clojure</a>.
       swank-clojure uses the Superior Lisp Interaction Mode for Emacs (Slime)
       described at <a href="http://common-lisp.net/project/slime/">http://common-lisp.net/project/slime/</a>.
       For Vim there is VimClojure
@@ -5422,8 +5419,8 @@ public class Main {
       <a href="http://enclojure.org/">http://enclojure.org/</a>.
       For IDEA there a "La Clojure" at
       <a href="http://plugins.intellij.net/plugin/?id=4050">http://plugins.intellij.net/plugin/?id=4050</a>.
-      For Eclipse there is clojure-dev at
-      <a href="http://code.google.com/p/counterclockwise/">http://code.google.com/p/counterclockwise/</a>.
+      For Eclipse there is Counter Clockwise at
+      <a href="http://dev.clojure.org/display/doc/Getting+Started+with+Eclipse+and+Counterclockwise">http://dev.clojure.org/display/doc/Getting+Started+with+Eclipse+and+Counterclockwise</a>.
     </p>
     
     <h2><a name="DesktopApps">Desktop Applications</a></h2>
@@ -5479,10 +5476,22 @@ public class Main {
 
     <h2><a name="WebApps">Web Applications</a></h2>
     <p>
-      There are several Clojure libraries for creating web applications.
-      A popular choice is Compojure which can be downloaded from
+      There are several Clojure libraries for creating web
+      applications.
+      A popular choice these days
+      is <a href="http://webnoir.org/">Noir</a> by Chris Granger.
+      A simple, convention-based MVC framework, that uses Christophe
+      Grand's <a href="https://github.com/cgrand/enlive">Enlive</a>
+      for view templates,
+      is <a href="https://github.com/seancorfield/fw1-clj">Framework
+      One</a> by Sean Corfield.
+      Another popular choice is Compojure by James Reeves which can be downloaded from
       <a href="http://github.com/weavejester/compojure/tree/master">http://github.com/weavejester/compojure/tree/master</a>.
-      The latest version can also be retrieved from a
+      All of these web frameworks are based
+      on <a href="https://github.com/mmcgrana/ring">Ring</a> by Mark
+      McGranahan and maintained by James Reeves.
+      We're going to look at Compojure as an example.
+      The latest version can be retrieved from a
       <a href="http://git-scm.com/">Git</a> repository
       as follows (assuming Git is already installed):
     </p>
@@ -5527,7 +5536,7 @@ ant clean deps jar
     <div class="code">
 <pre xml:space="preserve">
 # Set CP to a path list that contains clojure.jar
-# and possibly clojure-contrib.jar.
+# and possibly some Clojure contrib JAR files.
 COMPOJURE_DIR=<i>path-to-compojure-dir</i>
 COMPOJURE_JAR=$COMPOJURE_DIR/compojure.jar
 CP=$CP:$COMPOJURE_JAR
@@ -5593,7 +5602,7 @@ done
 
     <h2><a name="Databases">Databases</a></h2>
     <p>
-      The sql library in <a href="#Libraries">Clojure Contrib</a>
+      The jdbc library in <a href="#Libraries">Clojure Contrib</a>
       simplifies accessing relational databases.
       It supports transactions with commit and rollback,
       prepared statements, creating/dropping tables,
@@ -5605,7 +5614,7 @@ done
     </p>
     <div class="code">
 <pre xml:space="preserve">
-(use 'clojure.contrib.sql)
+(use 'clojure.java.jdbc)
 
 (let [db-host "localhost"
       db-port 5432 ; 3306
@@ -5641,39 +5650,32 @@ done
       Many libraries of Clojure functions and macros
       that support capabilities beyond what is in Clojure proper
       have been contributed.
-      A particular set of them, called "Clojure Contrib",
-      are collected into single repository and
-      can easily be downloaded with one Git command
-      (discussed in the "Getting Started" section).
       Some of these that were not discussed earlier are summarized below.
-      In addition, all of the known libraries are described at
+      In addition, many the known libraries are described at
       <a href="http://clojure.org/libraries">http://clojure.org/libraries</a>.
     </p>
     <ul>
-      <li>command-line - processes command-line arguments and outputs help</li>
-      <li>import_static - imports Java static fields and methods as Clojure symbols</li>
-      <li>lazy_xml - performs lazy parsing of XML</li>
-      <li>monads - provides commonly used
+      <li>clojure.tools.cli - processes command-line arguments and outputs help</li>
+      <li>clojure.data.xml - performs lazy parsing of XML</li>
+      <li>clojure.algo.monads - provides commonly used
         <a href="http://en.wikipedia.org/wiki/Monad_(functional_programming)">monads</a>,
         monad transformers, and macros for defining and using monads</li>
-      <li>seq_utils - provides additional functions and macros
-        for working with sequences</li>
-      <li>shell-out - provides functions and macros for launching subprocesses
+      <li>clojure.java.shell - provides functions and macros for launching subprocesses
         and controlling their stdin/stdout</li>
-      <li>stacktrace - provides functions that simplify stack trace output
+      <li>clojure.stacktrace - provides functions that simplify stack trace output
         by focusing on Clojure-specific content</li>
-      <li>str_utils - provides more functions for working with
+      <li>clojure.string - provides functions for working with
         strings and regular expressions</li>
-      <li>trace - provides tracing output for all
+      <li>clojure.tools.trace - provides tracing output for all
         calls to a given function and returns from it</li>
     </ul>
     <p>
-      Here's a brief example of using shell-out
+      Here's a brief example of using clojure.java.shell
       to obtain the "print working directory".
     </p>
     <div class="code">
 <pre xml:space="preserve">
-(use 'clojure.contrib.shell-out)
+(use 'clojure.java.shell)
 (def directory (sh "pwd"))
 </pre>
 </div>
@@ -5682,14 +5684,13 @@ done
     <p>
       This article has covered a lot of ground.
       If you're hungry for more, a great source is the book
-      "<a href="http://www.pragprog.com/titles/shcloj/programming-clojure">Programming Clojure</a>"
+      "<a href="http://pragprog.com/book/shcloj2/programming-clojure">Programming Clojure</a>"
       written by
       <a href="http://www.nofluffjuststuff.com/speaker_view.jsp?speakerId=6">Stuart Halloway</a>.
-      This can be purchased at 
-      <a href="http://www.pragprog.com/titles/shcloj/programming-clojure">http://www.pragprog.com/titles/shcloj/programming-clojure</a>.
     </p>
     <p>
-      This article focuses on the features of Clojure 1.0.
+      This article focuses on the features of Clojure 1.0 and will be
+      updated by various community members over time.
       For a review of the changes in Clojure 1.1 and beyond, see
       <a href="http://www.fogus.me/static/preso/clj1.1+/">http://www.fogus.me/static/preso/clj1.1+/</a>.
     </p>
@@ -5716,28 +5717,25 @@ done
     
     <h2><a name="References">References</a></h2>
     <ul>
-      <li>my Clojure site - <a href="http://www.ociweb.com/mark/clojure/">http://www.ociweb.com/mark/clojure/</a>
-      <li>my STM site - <a href="http://www.ociweb.com/mark/stm/">http://www.ociweb.com/mark/stm/</a>
-</li>
-      <li>Clojure main site - <a href="http://clojure.org/">http://clojure.org/</a>
-</li>
-      <li>Clojure API - <a href="http://clojure.org/api/">http://clojure.org/api/</a>
-</li>
-      <li>clj-doc - <a href="http://clj-doc.s3.amazonaws.com/tmp/doc-1116/">http://clj-doc.s3.amazonaws.com/tmp/doc-1116/</a>
-</li>
-      <li>Clojure class diagram - <a href="http://github.com/Chouser/clojure-classes/tree/master/graph-w-legend.png">http://github.com/Chouser/clojure-classes/tree/master/graph-w-legend.png</a>
-</li>
-      <li>clojure-contrib documentation - <a href="http://code.google.com/p/clojure-contrib/wiki/OverviewOfContrib/">http://code.google.com/p/clojure-contrib/wiki/OverviewOfContrib/</a></li>
-      <li>Wikibooks Clojure Programming - <a href="http://en.wikibooks.org/wiki/Clojure_Programming">http://en.wikibooks.org/wiki/Clojure_Programming</a>
-</li>
-      <li>Wikibooks Learning Clojure - <a href="http://en.wikibooks.org/wiki/Learning_Clojure">http://en.wikibooks.org/wiki/Learning_Clojure</a>
-</li>
-      <li>Wikibooks Clojure API Examples - <a href="http://en.wikibooks.org/wiki/Clojure_Programming/Examples/API_Examples">http://en.wikibooks.org/wiki/Clojure_Programming/Examples/API_Examples</a>
-</li>
-      <li>Project Euler Clojure code - <a href="http://clojure-euler.wikispaces.com/">http://clojure-euler.wikispaces.com/</a>
-</li>
-      <li>Clojure Snake Game - <a href="http://www.ociweb.com/mark/programming/ClojureSnake.html">http://www.ociweb.com/mark/programming/ClojureSnake.html</a>
-</li>
+      <li>my Clojure site -
+      <a href="http://www.ociweb.com/mark/clojure/">http://www.ociweb.com/mark/clojure/</a></li>
+      <li>my STM site - <a href="http://www.ociweb.com/mark/stm/">http://www.ociweb.com/mark/stm/</a></li>
+      <li>Clojure main site - <a href="http://clojure.org/">http://clojure.org/</a></li>
+      <li>Clojure API -
+      <a href="http://clojure.github.com/api-index.html">http://clojure.github.com/api-index.html</a></li>
+      <li>ClojureDocs - <a href="http://clojuredocs.org/">http://clojuredocs.org/</a></li>
+      <li>Clojure Atlas -
+      <a href="http://www.clojureatlas.com/">http://www.clojureatlas.com/</a></li>
+      <li>Clojure class diagram -
+      <a href="http://github.com/Chouser/clojure-classes/tree/master/graph-w-legend.png">http://github.com/Chouser/clojure-classes/tree/master/graph-w-legend.png</a></li>
+      <li>clojure-contrib documentation -
+      <a href="http://code.google.com/p/clojure-contrib/wiki/OverviewOfContrib/">http://code.google.com/p/clojure-contrib/wiki/OverviewOfContrib/</a></li>
+      <li>Wikibooks Clojure Programming - <a href="http://en.wikibooks.org/wiki/Clojure_Programming">http://en.wikibooks.org/wiki/Clojure_Programming</a></li>
+      <li>Wikibooks Learning Clojure - <a href="http://en.wikibooks.org/wiki/Learning_Clojure">http://en.wikibooks.org/wiki/Learning_Clojure</a></li>
+      <li>Wikibooks Clojure API Examples - <a href="http://en.wikibooks.org/wiki/Clojure_Programming/Examples/API_Examples">http://en.wikibooks.org/wiki/Clojure_Programming/Examples/API_Examples</a></li>
+      <li>Project Euler Clojure code - <a href="http://clojure-euler.wikispaces.com/">http://clojure-euler.wikispaces.com/</a></li>
+      <li>Modular contrib documentation - <a href="http://dev.clojure.org/display/design/Where+Did+Clojure.Contrib+Go">http://dev.clojure.org/display/design/Where+Did+Clojure.Contrib+Go</a></li>
+      <li>Clojure Snake Game - <a href="http://www.ociweb.com/mark/programming/ClojureSnake.html">http://www.ociweb.com/mark/programming/ClojureSnake.html</a></li>
     </ul>
     <hr />
     <!--#include virtual="/jnb/services.html"-->
