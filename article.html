@@ -1172,11 +1172,13 @@ user=&gt; (* n 3)
       Function parameters are bound to Vars that are local to the function.
     </p>
     <p>
-      The <code>def</code> macro binds a value to a symbol and provides
-      mechanism to assign that binding a thread-local value, via the <code>:dynamic</code> declaration.
-      In other words it allows re-definition of assigned value per execution thread
+      The <code>def</code> macro binds a value to a symbol. It provides a
+      mechanism to define metadata, <code>:dynamic</code>,  which allows a thread-local value
+      within the scope of a <code>binding</code> call.
+      In other words, it allows re-definition of assigned value per execution thread
       and scope. If the Var is not re-assigned to a new value in a separate
-      execution thread, the Var simply behaves like a global binding to that value.
+      execution thread, the Var refers to the value of the root binding,
+      if accessed from another thread.
     <p>
       The <code>let</code> macro creates bindings to Vars 
       that are bound to the scope within the statement.
