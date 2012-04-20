@@ -5,4 +5,4 @@ article.
 It was originally written by Mark Volkmann from Object Computing, Inc.
 It is now being updated by the Clojure community.
 Thanks to all the contributors including
-Sean Corfield and John Gabriele.
+Sean Corfield, John Gabriele, stuntgoat and Alex Miller.

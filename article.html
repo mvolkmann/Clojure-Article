@@ -109,7 +109,7 @@
       by<br />
       <a href="http://www.ociweb.com/mark/" onclick="window.open(this.href,'_blank');return false;" title="Author Bio">R. Mark Volkmann</a>,
       Partner <br />Object Computing, Inc. (OCI)<br />
-      last updated on 12/4/11
+      last updated on 4/20/12
     </p>
     
     <p style="text-align:center">
@@ -1234,9 +1234,7 @@ user=&gt; (* n 3)
     </p>
     <div class="code">
 <pre xml:space="preserve">
-
- ; v is a global binding
-(def ^:dynamic v 1) 
+(def ^:dynamic v 1) ; v is a global binding
 
 (defn f1 []
   (println "f1: v:" v)) 
@@ -1257,14 +1255,12 @@ user=&gt; (* n 3)
   (binding [v 3] 
     ; global binding, new value
     (println "f3: within binding function v: " v) 
-    ; calling f1 with new value to v
-    (f1)) 
+    (f1)) ; calling f1 with new value to v
   ; outside of binding v refers to first global value
   (println "f3: after binding v:" v)) 
 
 (defn f4 []
- ; changes the value of v in the global scope
- (def v 4)) 
+ (def v 4)) ; changes the value of v in the global scope
 
 (println "(= v 1) => " (= v 1))
 (println "Calling f2: ")
@@ -1276,21 +1272,21 @@ user=&gt; (* n 3)
 (println "Calling f4: ")
 (f4)
 (println "after calling f4, v =" v)
-
 </pre>
-</div>
+    </div>
     <p>
-      If you saved the shell script, described earlier, to execute
-      Clojure files from your terminal you can run the
-      preceding code by saving it to a file called
-      'vars.clj' and excecuting it at the commandline like so:</p>
-<p>
- <div class="code"><br>
-$ clj vars.clj&nbsp;&nbsp;
-<br>&nbsp;
-</div>
+      To run the code above, save it in a file named "vars.clj" and
+      use the shell script for executing Clojure files described earlier
+      as follows:
     </p>
-The output produced by the code above follows:
+    <div class="code">
+<pre xml:space="preserve">
+$ clj vars.clj
+</pre>
+    </div>
+    <p>
+      The output produced by the code above follows:
+    </p>
     <div class="code">
 <pre xml:space="preserve">
 ; (= v 1) =>  true
@@ -1308,32 +1304,30 @@ f3: after binding v: 1
 
 Calling f4 
 after calling f4, v: 4
-
 </pre>
-</div>
- <p>
-<h4>Recap:</h4>
-</p>
-<p>
-  Notice in the first call to f2, the <code>let</code>
-  function's binding to v did not change value of the 
-  first declared value to v, as is shown in the call to
-  f1 within the <code>let</code> statement- the value 
-  of v in f1 is 1, not 2. 
-</p>
-<p>
-  Next, inside f3 within the scope of the <code>binding</code> call, 
-  the value of v was re-assigned within f1 since f1 was called within the 
-execution thread of <code>binding</code> call's scope. Once the f3's function
-  execution thread exits from the <code>binding</code> call, v is
-  bound to the initially declared binding, 1.
-</p>
-<p>
-  When f4 is called, the binding of v is not within the context
-  of a new execution thread so v is bound to this new value, 4, in the global scope. 
-  Remember that changing a global value is not necessarily a best
- practice- it is presented in f4's definition for demonstration purposes.
-</p>
+    </div>
+    <h4>Recap:</h4>
+    </p>
+    <p>
+      Notice in the first call to f2, the <code>let</code>
+      function's binding to v did not change its originally
+      declared value, as is shown in the call to
+      f1 within the <code>let</code> statement.
+      The value of v in f1 is 1, not 2. 
+    </p>
+    <p>
+      Next, inside f3 within the scope of the <code>binding</code> call, 
+      the value of v was re-assigned within f1 since f1 was called within the 
+      execution thread of <code>binding</code> call's scope. Once f3's
+      function execution thread exits from the <code>binding</code> call,
+      v is bound to the initially declared binding, 1.
+    </p>
+    <p>
+      When f4 is called, the binding of v is not within the context of a
+      new execution thread so v is bound to the new value, 4, in the global scope. 
+      Remember that changing a global value is not necessarily a best
+      practice.  It is presented in f4's definition for demonstration purposes.
+    </p>
 
     <h2><a name="Collections">Collections</a></h2>
     <p>
