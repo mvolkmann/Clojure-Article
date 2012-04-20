@@ -502,7 +502,7 @@ methodName(arg1, arg2, arg3);
       everything in Lisp has this form.
       Note that the naming convention in Clojure is to use
       all lowercase with hyphens separating words in multi-word names,
-      unlike the Java convention of using camelcase.
+      unlike the Java convention of using camelCase.
     </p>
     <p>
       Defining functions is similarly less noisy in Clojure.
@@ -890,17 +890,17 @@ clj <i>source-file-path</i>
         <td colspan="1" rowspan="1">construct a Java object;<br />
           note the period after the class name</td>
         <td colspan="1" rowspan="1">
-          <code>(<i>class-name</i>. <i>args</i>)</code>
+          <code>(<i>ClassName</i>. <i>args</i>)</code>
         </td>
         <td colspan="1" rowspan="1">
-          <code>(new <i>class-name</i> <i>args</i>)</code>
+          <code>(new <i>ClassName</i> <i>args</i>)</code>
         </td>
       </tr>
       <tr>
         <td colspan="1" rowspan="1">call a Java method</td>
         <td colspan="1" rowspan="1">
-          <code>(. <i>class-or-instance</i> <i>method-name</i> <i>args</i>)</code> or <br />
-          <code>(.<i>method-name</i> <i>class-or-instance</i> <i>args</i>)</code>
+          <code>(. <i>ClassOrInstance</i> <i>methodName</i> <i>args</i>)</code> or <br />
+          <code>(.<i>methodName</i> <i>ClassOrInstance</i> <i>args</i>)</code>
         </td>
         <td colspan="1" rowspan="1">none</td>
       </tr>
@@ -912,7 +912,7 @@ clj <i>source-file-path</i>
           specified inside the parens;<br />
           note the double period</td>
         <td colspan="1" rowspan="1">
-          <code>(.. <i>class-or-object</i>
+          <code>(.. <i>ClassOrObject</i>
           (<i>method1 args</i>) (<i>method2 args</i>) ...)</code>
         </td>
         <td colspan="1" rowspan="1">none</td>
