@@ -851,7 +851,7 @@ clj <i>source-file-path</i>
           add metadata to a symbol or collection
         </td>
         <td colspan="1" rowspan="1">
-          <code>#^{<i>key-value-pairs</i>} <i>object</i></code><br />
+          <code>^{<i>key-value-pairs</i>} <i>object</i></code><br />
           processed at read-time
         </td>
         <td colspan="1" rowspan="1">
@@ -864,7 +864,7 @@ clj <i>source-file-path</i>
           get metadata map from a symbol or collection
         </td>
         <td colspan="1" rowspan="1">
-          <code>^<i>object</i></code>
+          <code>meta<i>object</i></code>
         </td>
         <td colspan="1" rowspan="1">
           <code>(meta <i>object</i>)</code>
@@ -3824,7 +3824,7 @@ Output from pr:
 (println (== card1 card2)) ; same identity? -&gt; false
 (println (= card1 card2)) ; same value? -&gt; true
 
-(def card2 #^{:bent true} card2) ; adds metadata at read-time
+(def card2 ^{:bent true} card2) ; adds metadata at read-time
 (def card2 (with-meta card2 {:bent true})) ; adds metadata at run-time
 (println (meta card1)) ; -&gt; nil
 (println (meta card2)) ; -&gt; {:bent true}
@@ -3875,7 +3875,7 @@ Output from pr:
       Functions and macros, both represented by a <code>Var</code> object,
       have associated metadata.
       For example, enter the following in a REPL:
-      <code>(meta (var reverse))</code> or <code>^#'reverse</code>.
+      <code>(meta (var reverse))</code>.
       The output will be similar to the following, but on a single line:
     </p>
     <div class="code">
@@ -5243,7 +5243,7 @@ java -classpath <i>path</i>/classes:<i>path</i>/clojure.jar com.ociweb.talk <i>a
 <pre xml:space="preserve">
 (ns <i>namespace</i>
   (:gen-class
-   :methods [#^{:static true} [<i>function-name</i> [<i>param-types</i>] <i>return-type</i>]]))
+   :methods [^{:static true} [<i>function-name</i> [<i>param-types</i>] <i>return-type</i>]]))
 </pre>
 </div>
     <p>
@@ -5255,7 +5255,7 @@ java -classpath <i>path</i>/classes:<i>path</i>/clojure.jar com.ociweb.talk <i>a
 <pre xml:space="preserve">
 (ns com.ociweb.clj.Demo
   (:gen-class
-   :methods [#^{:static true} [getMessage [String] String]]))
+   :methods [^{:static true} [getMessage [String] String]]))
 
 # Note the hyphen at the beginning of the function name!
 (defn -getMessage [name]
