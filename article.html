@@ -562,130 +562,36 @@ public void hello(String name) {
     </p>
     
     <h2><a name="GettingStarted">Getting Started</a></h2>
-    <p>
-      Clojure is a relatively new language.
-      It was first released on October 16, 2007
-      after a couple of years of work.
-      The main Clojure download is referred to as "Clojure proper"
-      or the "core".
-      It can be obtained from
-      <a href="http://clojure.org/downloads">http://clojure.org/downloads</a>.
-      Another option is to use
-      <a href="http://github.com/technomancy/leiningen/">Leiningen</a>.
-      The latest source can be obtained from its Git repository.
-    </p>
-    <p>
-      "<a href="#Libraries">Clojure Contrib</a>" is
-      a repository for contributed libraries.
-      Some of its libraries are mature, commonly used and
-      may eventually be included in Clojure proper.
-      However, it's also the case that some of the older monolithic
-      contrib modules were
-      not mature, not commonly used nor
-      targeted for inclusion in Clojure proper.
-      It was a mixed bag. As part of the Clojure 1.3.0 roadmap,
-      the monolithic contrib library has been deprecated and is
-      no longer being maintained. In its place are a series of
-      independent contrib libraries that have been approved by
-      Clojure/core and have active maintainers and their own
-      projects on JIRA where bugs can be reported:
-      <a href="http://dev.clojure.org/jira/secure/BrowseProjects.jspa#all">http://dev.clojure.org/jira/secure/BrowseProjects.jspa#all</a>.
-      For documentation on these new libraries, see
-      <a href="http://dev.clojure.org/display/doc/Clojure+Contrib">http://dev.clojure.org/display/doc/Clojure+Contrib</a>
-    </p>
-    <p>
-      Currently there is no "all inclusive" JAR for Clojure Contrib.
-      Individual contrib libraries can be included via Maven or
-      Leiningen by specifying the dependency. The easiest way to find
-      the latest version and the artifact ID is to follow the links on
-      this page, which also shows how the old monolithic contrib maps
-      to the new modular contrib libraries:
-      <a href="http://dev.clojure.org/display/design/Where+Did+Clojure.Contrib+Go">http://dev.clojure.org/display/design/Where+Did+Clojure.Contrib+Go</a>.
-      Maven can be obtained from
-      <a href="http://maven.apache.org/">http://maven.apache.org/</a>.
-      Leiningen can be obtained from the link above.
-    </p>
-    <p>
-      To build from the most recent source,
-      assuming you have
-      <a href="http://git-scm.com/">Git</a>,
-      <a href="http://ant.apache.org/">Ant</a>
-      and <a href="http://maven.apache.org/">Maven</a> installed,
-      run the following commands
-      to retrieve and build Clojure proper:
-    </p>
-    <div class="code">
-<pre xml:space="preserve">
-git clone git://github.com/clojure/clojure.git
-cd clojure
-ant clean jar
-# or: mvn package
-cd ..
-# for each modular contrib library, e.g., clojure.java.jdbc: 
-git clone git://github.com/clojure/java.jdbc.git
-cd java.jdbc
-mvn package
+
+    <p>Clojure code for your own library and application projects will
+      typically reside in its own directory (named after the project)
+      and will be managed by
+      the <a href="http://leiningen.org/index.html">Leiningen</a>
+      project management tool. Leiningen (or "lein" for short) will
+      take care of downloading Clojure for you and making it available
+      to your projects. To start using Clojure, you don't need to
+      install Clojure, nor deal with jar files or
+      the <code>java</code> command &mdash; just install and use
+      lein (instructions on the lein homepage, linked to above).</p>
+
+    <p>Once you've installed lein, create a trivial project to start
+      playing around with:</p>
+<div class="code">
+<pre xml:space="preserve">cd ~/temp
+lein new my-proj
+cd my-proj
+lein repl     # starts up the interactive REPL
 </pre>
 </div>
     <p>
-      Next, create a script to run the Read/Eval/Print Loop (REPL)
-      and to run Clojure programs.
-      This is typically named "clj".
-      Use of the REPL is explained later.
-      The simplest possible Windows script to do both things contains
-      the following single line
-      (for UNIX, Linux and Mac OS X, change %1 to $1):
-    </p>
-    <div class="code">
-<pre xml:space="preserve">
-java -jar <i>path</i>/clojure-<i>version</i>.jar %1
-</pre>
-</div>
-    <p>
-      This script assumes that <code>java</code> can be found in
-      a directory included in the <code>PATH</code> environment variable.
-      To make this script more useful:
-    </p>
-    <ul>
-      <li>Add frequently needed JARs for libraries such as
-      "<a href="#Libraries">Clojure Contrib</a>"
-      and database drivers to the classpath (<code>-cp</code>).</li>
-      <li>Add editing features, completion and
-      cross session command-line recall with
-      <a href="http://utopia.knoware.nl/~hlub/uck/rlwrap/">rlwrap</a>
-      (supports vi keystrokes) or
-      <a href="http://jline.sourceforge.net">JLine</a>.</li>
-      <li>Add the use of a startup script to
-      set special symbols (such as <code>*print-length*</code>
-      and <code>*print-level*</code>),
-      import commonly used Java classes not in <code>java.lang</code>,
-      load commonly used Clojure functions not in <code>clojure.core</code>,
-      and define commonly used custom functions.</li>
-    </ul>
-    <p>
-      Using this script to start a REPL is described later.
-      Using the script to run a Clojure source file,
-      which typically has a <code>.clj</code> extension,
-      is done as follows:
-    </p>
-    <div class="code">
-<pre xml:space="preserve">
-clj <i>source-file-path</i>
-</pre>
-</div>
-    <p>
-      For more details, see 
+      For more info, see 
       <a href="http://clojure.org/getting_started">http://clojure.org/getting_started</a> and
       <a href="http://clojure.org/repl_and_main">http://clojure.org/repl_and_main</a>.
     </p>
     <p>
-      In order to take maximum advantage of multiple processors,
-      it may be necessary to start Clojure with
-      "<code>java -server ...</code>".
-    </p>
-    <p>
       Command-line arguments passed to a Clojure program are available
-      in the predefined binding <code>*command-line-args*</code>.
+      in the predefined binding <code>*command-line-args*</code>. To create a new
+      <i>application</i> project, do "<code>lein new app my-app</code>"
     </p>
 
     <h2><a name="Syntax">Clojure Syntax</a></h2>
@@ -5692,7 +5598,8 @@ done
     <p>
       Many libraries of Clojure functions and macros
       that support capabilities beyond what is in Clojure proper
-      have been contributed.
+      have been contributed and are part of
+      <a href="http://dev.clojure.org/display/doc/Clojure+Contrib">Clojure Contrib</a>.
       Some of these that were not discussed earlier are summarized below.
       In addition, many the known libraries are described at
       <a href="http://clojure.org/libraries">http://clojure.org/libraries</a>.
