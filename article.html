@@ -1170,7 +1170,7 @@ user=&gt; (* n 3)
       Function parameters are bound to Vars that are local to the function.
     </p>
     <p>
-      The <code>def</code> macro binds a value to a symbol. It provides a
+      The <code>def</code> special form binds a value to a symbol. It provides a
       mechanism to define metadata, <code>:dynamic</code>,  which allows a thread-local value
       within the scope of a <code>binding</code> call.
       In other words, it allows re-definition of assigned value per execution thread
@@ -1178,7 +1178,7 @@ user=&gt; (* n 3)
       execution thread, the Var refers to the value of the root binding,
       if accessed from another thread.
     <p>
-      The <code>let</code> macro creates bindings to Vars 
+      The <code>let</code> special form creates bindings to Vars
       that are bound to the scope within the statement.
       Its first argument is a vector containing name/expression pairs.
       The expressions are evaluated in order and their results
