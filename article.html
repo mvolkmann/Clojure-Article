@@ -473,7 +473,7 @@
       <a href="http://clojure.org/lisps">http://clojure.org/lisps</a>.
     </p>
     <p>
-      Lisp has a syntax that many people love ... and many people hate,
+      Lisp has a syntax that many people love… and many people hate,
       mainly due to its use of parentheses and prefix notation.
       If you tend toward the latter camp, consider these facts.
       Many text editors and IDEs highlight matching parentheses, so it
@@ -536,7 +536,7 @@ public void hello(String name) {
       Clojure code is processed in three phases:
       read-time, compile-time and run-time.
       At read-time the Reader reads source code and
-      converts it to a data structure, mostly a list of lists of lists ....
+      converts it to a data structure, mostly a list of lists of lists…
       At compile-time this data structure is converted to Java bytecode.
       At run-time the bytecode is executed.
       Functions are only invoked at run-time.
@@ -557,8 +557,7 @@ public void hello(String name) {
       Examples include being comfortable with the use of
       <code>let</code>, <code>apply</code>, <code>map</code>,
       <code>filter</code>, <code>reduce</code>
-      and anonymous functions
-      ... all of which are described later.
+      and anonymous functions… all of which are described later.
     </p>
     
     <h2><a name="GettingStarted">Getting Started</a></h2>
@@ -1171,7 +1170,7 @@ user=&gt; (* n 3)
       Function parameters are bound to Vars that are local to the function.
     </p>
     <p>
-      The <code>def</code> macro binds a value to a symbol. It provides a
+      The <code>def</code> special form binds a value to a symbol. It provides a
       mechanism to define metadata, <code>:dynamic</code>,  which allows a thread-local value
       within the scope of a <code>binding</code> call.
       In other words, it allows re-definition of assigned value per execution thread
@@ -1179,7 +1178,7 @@ user=&gt; (* n 3)
       execution thread, the Var refers to the value of the root binding,
       if accessed from another thread.
     <p>
-      The <code>let</code> macro creates bindings to Vars 
+      The <code>let</code> special form creates bindings to Vars
       that are bound to the scope within the statement.
       Its first argument is a vector containing name/expression pairs.
       The expressions are evaluated in order and their results
@@ -1352,7 +1351,7 @@ after calling f4, v: 4
     </p>
     <p>
       There are many core functions that operate on
-      all kinds of collections ... far too many to describe here.
+      all kinds of collections… far too many to describe here.
       A small subset of them are described next using vectors.
       Keep in mind that since Clojure collections are immutable,
       there are no functions that modify them.
@@ -2477,7 +2476,7 @@ Calendar/APRIL ; works if the Calendar class was imported
       This avoids getting a <code>NullPointerException</code>.
     </p>
     <p>
-      The <code>doto</code> function is used to
+      The <code>doto</code> macro is used to
       invoke many methods on the same object.
       It returns the value of its first argument which is the target object.
       This makes it convenient to create the target object
@@ -2526,7 +2525,7 @@ Calendar/APRIL ; works if the Calendar class was imported
 
     <h3>Proxies</h3>
     <p>
-      The <code>proxy</code> function creates a Java object
+      The <code>proxy</code> macro expands to code that creates a Java object
       that extends a given Java class and/or
       implements zero or more Java interfaces.
       This is often needed to implement callback methods in
@@ -2878,7 +2877,7 @@ thread stopped
       The following examples both output names of some spreadsheet cells
       working down rows and then across columns.
       They skip the "B" column and only use rows that are less than 3.
-      Note how the <code>dorun</code> macro,
+      Note how the <code>dorun</code> function,
       described later in the "<a href="#Sequences">Sequences</a>" section,
       is used to force evaluation of the lazy sequence
       returned by the <code>for</code> macro.
@@ -3896,7 +3895,7 @@ Output from pr:
 </pre>
 </div>
     <p>
-      The <code>source</code> function, in the clojure.repl library,
+      The <code>source</code> macro, in the clojure.repl library,
       uses this metadata to retrieve the source code
       for a given function or macro.  For example:
     </p>
