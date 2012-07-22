@@ -19,7 +19,7 @@
                 background-color: rgb(255, 253, 160);
             }
             code {
-                font-family: "Courier New", sans-serif;
+                font-family: "Courier New", monospace;
             }
             div.center {
                 text-align: center;
@@ -48,7 +48,7 @@
                 text-align: justify;
             }
             pre {
-                font-family: "Courier New", sans-serif;
+                font-family: "Courier New", monospace;
             }
             .educationquicklinks {
                 text-align: center;
@@ -471,7 +471,7 @@
       <a href="http://clojure.org/lisps">http://clojure.org/lisps</a>.
     </p>
     <p>
-      Lisp has a syntax that many people love ... and many people hate,
+      Lisp has a syntax that many people love… and many people hate,
       mainly due to its use of parentheses and prefix notation.
       If you tend toward the latter camp, consider these facts.
       Many text editors and IDEs highlight matching parentheses, so it
@@ -534,7 +534,7 @@ public void hello(String name) {
       Clojure code is processed in three phases:
       read-time, compile-time and run-time.
       At read-time the Reader reads source code and
-      converts it to a data structure, mostly a list of lists of lists ....
+      converts it to a data structure, mostly a list of lists of lists…
       At compile-time this data structure is converted to Java bytecode.
       At run-time the bytecode is executed.
       Functions are only invoked at run-time.
@@ -555,8 +555,7 @@ public void hello(String name) {
       Examples include being comfortable with the use of
       <code>let</code>, <code>apply</code>, <code>map</code>,
       <code>filter</code>, <code>reduce</code>
-      and anonymous functions
-      ... all of which are described later.
+      and anonymous functions… all of which are described later.
     </p>
     
     <h2><a name="GettingStarted">Getting Started</a></h2>
@@ -1169,7 +1168,7 @@ user=&gt; (* n 3)
       Function parameters are bound to Vars that are local to the function.
     </p>
     <p>
-      The <code>def</code> macro binds a value to a symbol. It provides a
+      The <code>def</code> special form binds a value to a symbol. It provides a
       mechanism to define metadata, <code>:dynamic</code>,  which allows a thread-local value
       within the scope of a <code>binding</code> call.
       In other words, it allows re-definition of assigned value per execution thread
@@ -1177,7 +1176,7 @@ user=&gt; (* n 3)
       execution thread, the Var refers to the value of the root binding,
       if accessed from another thread.
     <p>
-      The <code>let</code> macro creates bindings to Vars 
+      The <code>let</code> special form creates bindings to Vars
       that are bound to the scope within the statement.
       Its first argument is a vector containing name/expression pairs.
       The expressions are evaluated in order and their results
@@ -1193,7 +1192,7 @@ user=&gt; (* n 3)
       <a name="binding">The</a> <code>binding</code> macro
       is similar to <code>let</code>,
       but it gives new, thread-local values
-      to existing global bindings throughout the scopes
+      to existing global bindings throughout the scope's
       thread of execution.
       The values of Vars bound within the <code>let</code> 
       vector argument are also used in functions, if they use
@@ -1350,7 +1349,7 @@ after calling f4, v: 4
     </p>
     <p>
       There are many core functions that operate on
-      all kinds of collections ... far too many to describe here.
+      all kinds of collections… far too many to describe here.
       A small subset of them are described next using vectors.
       Keep in mind that since Clojure collections are immutable,
       there are no functions that modify them.
@@ -2411,7 +2410,7 @@ Calendar/APRIL ; works if the Calendar class was imported
       which takes one or more values.
     </p>
     <p>
-      There are two ways invoke a static method in a Java class,
+      There are two ways to invoke a static method in a Java class,
       shown in the examples below:
     </p>
     <div class="code">
@@ -2437,7 +2436,7 @@ Calendar/APRIL ; works if the Calendar class was imported
 </pre>
 </div>
     <p>
-      There are two ways invoke an instance method on a Java object,
+      There are two ways to invoke an instance method on a Java object,
       shown in the examples below:
     </p>
     <div class="code">
@@ -2475,7 +2474,7 @@ Calendar/APRIL ; works if the Calendar class was imported
       This avoids getting a <code>NullPointerException</code>.
     </p>
     <p>
-      The <code>doto</code> function is used to
+      The <code>doto</code> macro is used to
       invoke many methods on the same object.
       It returns the value of its first argument which is the target object.
       This makes it convenient to create the target object
@@ -2524,7 +2523,7 @@ Calendar/APRIL ; works if the Calendar class was imported
 
     <h3>Proxies</h3>
     <p>
-      The <code>proxy</code> function creates a Java object
+      The <code>proxy</code> macro expands to code that creates a Java object
       that extends a given Java class and/or
       implements zero or more Java interfaces.
       This is often needed to implement callback methods in
@@ -2876,7 +2875,7 @@ thread stopped
       The following examples both output names of some spreadsheet cells
       working down rows and then across columns.
       They skip the "B" column and only use rows that are less than 3.
-      Note how the <code>dorun</code> macro,
+      Note how the <code>dorun</code> function,
       described later in the "<a href="#Sequences">Sequences</a>" section,
       is used to force evaluation of the lazy sequence
       returned by the <code>for</code> macro.
@@ -3086,12 +3085,12 @@ D2
     </p>
     <p>
       Many Clojure functions return a lazy sequence.
-      This is sequence whose items can be the result of function calls
+      This is a sequence whose items can be the result of function calls
       that aren't evaluated until they are needed.
       A benefit of creating a lazy sequence is that it isn't
       necessary to anticipate how many items in it will
       actually be used at the time the sequence is created.
-      Examples of functions that return lazy sequences include:
+      Examples of functions and macros that return lazy sequences include:
       <code>cache-seq</code>, <code>concat</code>, <code>cycle</code>,
       <code>distinct</code>, <code>drop</code>, <code>drop-last</code>,
       <code>drop-while</code>, <code>filter</code>, <code>for</code>,
@@ -3164,7 +3163,7 @@ D2
       when the evaluation results need to be retained.
       It holds the head of the sequence
       which causes the results to be cached
-      and it return the evaluated sequence.
+      and it returns the evaluated sequence.
     </p>
     <p>
       The table below illustrates the options for
@@ -3412,7 +3411,7 @@ Output from pr:
       instead of printing to <code>*out*</code>.
     </p>
     <p>
-      The <code>printf</code> function similar to <code>print</code>,
+      The <code>printf</code> function is similar to <code>print</code>,
       but uses a format string.
       The <code>format</code> function is similar to <code>printf</code>,
       but prints to a string that is returned
@@ -3465,7 +3464,7 @@ Output from pr:
       The <code>slurp</code> function reads the entire contents of a file
       into a string and returns it.
       The <code>spit</code> function
-      which writes a string to a given file and closes it.
+      writes a string to a given file and closes it.
     </p>
     <p>
       This article only scratches the surface
@@ -3503,7 +3502,7 @@ Output from pr:
 </div>
     <p>
       The ampersand character can be used with destructuring
-      to capturing the remaining items in a collection.  For example:
+      to capture the remaining items in a collection.  For example:
     </p>
     <div class="code">
 <pre xml:space="preserve">
@@ -3778,13 +3777,13 @@ Output from pr:
     </p>
     <h3>Some Fine Print</h3>
     <p>
-      <code>Symbol</code> objects have a <code>String</code> name and
+      A <code>Symbol</code> object has a <code>String</code> name and
       a <code>String</code> namespace name (called <code>ns</code>),
       but no value.
       The fact that it uses a String namespace name
       instead of a <code>Namespace</code> object reference
-      allows it to be a namespace that doesn't yet exist.
-      <code>Var</code> objects have references to
+      allows it to be in a namespace that doesn't yet exist.
+      A <code>Var</code> objects has references to
       a <code>Symbol</code> object (called <code>sym</code>),
       a <code>Namespace</code> object (called <code>ns</code>)
       and an <code>Object</code> object which is its "root value"
@@ -3864,7 +3863,7 @@ Output from pr:
       <code>:name</code> is a <code>Symbol</code>
       that provides a name for the Var.
       <code>:ns</code> is a <code>Namespace</code> object
-      that the describes the namespace
+      that describes the namespace
       in which the Var is defined.
       <code>:macro</code> is a boolean that indicates
       whether a Var is a macro
@@ -3894,7 +3893,7 @@ Output from pr:
 </pre>
 </div>
     <p>
-      The <code>source</code> function, in the clojure.repl library,
+      The <code>source</code> macro, in the clojure.repl library,
       uses this metadata to retrieve the source code
       for a given function or macro.  For example:
     </p>
@@ -3978,7 +3977,7 @@ Output from pr:
       whose arguments are its conditions and return values.
       The <code>let</code> special form is used here for efficiency
       in the event that the first parameter, <code>number</code>,
-      is passed as an expression instead of simple value.
+      is passed as an expression instead of a simple value.
       It evaluates <code>number</code> once and then
       uses its value in two places within the <code>cond</code>.
       The auto-gensym <code>number#</code> is used to
@@ -4530,7 +4529,7 @@ result is 9.0
       The <code>ref-set</code> function changes
       the in-transaction value of a Ref and returns it.
       It must be called inside a transaction, otherwise
-      an <code>IllegalStateException</code> is throw.
+      an <code>IllegalStateException</code> is thrown.
       The change will only be visible outside the transaction
       if and when the transaction commits.
       This happens when a <code>dosync</code> exits
@@ -5016,7 +5015,7 @@ balance for Tami is 200
       If the <code>send</code> or <code>send-off</code> functions
       are invoked from inside a transaction,
       the action isn't actually sent until the transaction commits.
-      This is somewhat similar to the calling
+      This is somewhat similar to calling
       the <code>commute</code> function on a Ref in the sense that
       the calls that determine the value to retain
       occur at the end of the transaction.
@@ -5381,10 +5380,10 @@ public class Main {
 </div>
     <p>
       Another important feature of the test library is fixtures.
-      They are code that wraps execution of test methods.
+      They are code that wraps the execution of test methods.
       Fixtures come in two varieties,
       those that wrap the execution of each test method and
-      those that wrap execution of the entire run of test methods.
+      those that wrap the execution of the entire run of test methods.
     </p>
     <p>
       To create a fixture, write a function that follows this pattern:
@@ -5454,8 +5453,8 @@ public class Main {
       <a href="https://github.com/technomancy/swank-clojure">https://github.com/technomancy/swank-clojure</a>.
       swank-clojure uses the Superior Lisp Interaction Mode for Emacs (Slime)
       described at <a href="http://common-lisp.net/project/slime/">http://common-lisp.net/project/slime/</a>.
-      For Vim there is VimClojure
-      <a href="http://kotka.de/projects/clojure/vimclojure.html">http://kotka.de/projects/clojure/vimclojure.html</a>.
+      For Vim there is VimClojure at
+      <a href="http://www.vim.org/scripts/script.php?script_id=2501">http://www.vim.org/scripts/script.php?script_id=2501</a>.
       For NetBeans there is enclojure at
       <a href="http://enclojure.org/">http://enclojure.org/</a>.
       For IDEA there a "La Clojure" at
@@ -5692,7 +5691,7 @@ done
       that support capabilities beyond what is in Clojure proper
       have been contributed.
       Some of these that were not discussed earlier are summarized below.
-      In addition, many the known libraries are described at
+      In addition, many of the known libraries are described at
       <a href="http://clojure.org/libraries">http://clojure.org/libraries</a>.
     </p>
     <ul>
@@ -5752,7 +5751,7 @@ done
         of Lisp dialects appealing?</li>
      </ul>
     <p>
-      If you answered "yes" some of these questions then you should
+      If you answered "yes" to some of these questions then you should
       consider using Clojure as your next programming language.
     </p>
     
