@@ -1,10 +1,8 @@
 % Clojure - Functional Programming for the JVM
-% R. Mark Volkmann, Partner, Object Computing Inc (OCI)
+% R. Mark Volkmann, Partner, Object Computing, Inc (OCI)
 % 2012-07-22
 
-
 by [R. Mark Volkmann](http://www.ociweb.com/mark/ "Author Bio"), Partner Object Computing, Inc. (OCI)
-
 
 Introduction
 ------------

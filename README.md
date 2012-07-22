@@ -6,7 +6,7 @@ To generate the html file, you'll need
 [Pandoc](http://johnmacfarlane.net/pandoc/) installed. Then run this
 command:
 
-    pandoc -s -S --toc --css=styles.css -B before.html -o article.html article.md
+    pandoc -s -S --toc --css=styles.css --template=_tmpl.html -B before.html -o article.html article.md
 
 It was originally written by Mark Volkmann from Object Computing, Inc.
 It is now being updated by the Clojure community.
