@@ -1,0 +1,81 @@
+/* John Gabriele, 2011, 2012, */
+/* with some help from <http://colorschemedesigner.com/>. */
+
+body {
+    color: #222;
+    width: 860px;
+    font-family: sans-serif;
+    margin-left: 20px;
+}
+
+.quicklinks {
+    text-align: right;
+}
+
+#TOC {
+    background-color: #eef6ee;
+    border: 1px solid #ddd;
+}
+
+a:link {
+    color: #3A4089;
+}
+
+a:visited {
+    color: #875098;
+}
+
+table {
+    background-color: #eee;
+    padding-left: 2px;
+    border: 2px solid #d4d4d4;
+    border-collapse: collapse;
+}
+
+th {
+    background-color: #d4d4d4;
+    padding-right: 4px;
+}
+
+tr, td, th {
+    border: 2px solid #d4d4d4;
+    padding-left: 4px;
+    padding-left: 4px;
+}
+
+dt {
+    font-weight: bold;
+}
+
+code {
+    background-color: #eee;
+    padding: 1px;
+    border: 1px solid #ddd;
+}
+
+pre {
+    padding-left: 6px;
+    padding-right: 2px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    background-color: #eee;
+    border: 1px solid #ddd;
+}
+
+pre code {
+    border: 0px;
+}
+
+blockquote {
+    color: #3a3a3a;
+    background-color: #cde;
+    border: 1px solid #bcd;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+h3, h5 {
+    font-style: italic;
+}
