@@ -107,7 +107,7 @@
       by<br />
       <a href="http://www.ociweb.com/mark/" onclick="window.open(this.href,'_blank');return false;" title="Author Bio">R. Mark Volkmann</a>,
       Partner <br />Object Computing, Inc. (OCI)<br />
-      last updated on 7/22/12
+      last updated on 8/9/12
     </p>
     
     <p style="text-align:center">
@@ -934,7 +934,8 @@ public class PigLatin {
     <div class="code">
 <pre xml:space="preserve">
 ; This is Clojure code.
-; When a set is used as a function, it returns a boolean
+; When a set is used as a function, it returns the argument if it is
+; in the set and nil otherwise.  When used in a boolean context,
 ; that indicates whether the argument is in the set.
 (def vowel? (set "aeiou"))
 
