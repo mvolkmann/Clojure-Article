@@ -4325,7 +4325,7 @@ result is 9.0
     </p>
     <div class="code">
 <pre xml:space="preserve">
-(def v 1)
+(def ^:dynamic v 1) ; need "dynamic" metadata so v can be changed in a binding
 
 (defn change-it []
   (println "2) v =" v) ; -&gt; 1
