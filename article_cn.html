@@ -181,7 +181,7 @@ public void hello(String name) {
 }</pre>
 <pre>; Clojure
 (defn hello [name]
-  (println "Hello," name))</pre>
+  (println (str "Hello," name)))</pre>
 </div>
 
     <p>Clojure里面大量之用了延迟计算. 这使得只有在我们需要函数结果的时候才去调用它. "懒惰序列" 是一种集合，我们之后在需要的时候才会计算这个集合里面的元素. 这使得创建无限集合非常高效.</p>
