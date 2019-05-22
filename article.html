@@ -5436,14 +5436,16 @@ git clone git://github.com/weavejester/compojure.git
     <p>
       This creates a directory named <code>compojure</code>
       in the current directory.
-      Additional JARs must be downloaded from
+      <del></del></de>Additional JARs must be downloaded from
       <a href="http://cloud.github.com/downloads/weavejester/compojure/deps.zip">http://cloud.github.com/downloads/weavejester/compojure/deps.zip</a>.
       Place <code>deps.zip</code> in the <code>compojure</code> directory
-      and unzip it to create a <code>deps</code> subdirectory.
+      and unzip it to create a <code>deps</code> subdirectory.</del>
+	  <cite>Repo above is no longer accessible. Please use <code>lein deps</code> to download dependencies. This will not, however, create a subdirectory.</cite>
     </p>
     <p>
       To build <code>compojure.jar</code>,
       run <code>ant</code> from the compojure directory.
+	  <cite>Alternatively, use <code>lein jars</code> to create compojure.jar.</cite>
     </p>
     <p>
       To get updates to Compojure,
